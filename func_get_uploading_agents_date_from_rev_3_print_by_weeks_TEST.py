@@ -1,4 +1,4 @@
-import requests
+﻿import requests
 import json
 
 import cryptography
@@ -74,11 +74,8 @@ API_sbis_pass = f_decrypt(var_encrypt_API_sbis_pass, load_key_external()).decode
 
 from modules.api_info import var_encrypt_TOKEN_yandex_users, f_decrypt, load_key_external
 from modules.api_info import var_encrypt_var_login_da, var_encrypt_var_pass_da
-# ____________________________________________________________________________________________
 
 var_TOKEN = f_decrypt(var_encrypt_TOKEN_yandex_users, load_key_external()).decode("utf-8")
-# login_da = f_decrypt(var_encrypt_var_login_da, load_key_external()).decode("utf-8")
-# pass_da = f_decrypt(var_encrypt_var_pass_da, load_key_external()).decode("utf-8")
 login_da = API_sbis
 pass_da = API_sbis_pass
 
@@ -89,10 +86,7 @@ def send_message(var_link, var_doc_number, var_doc_data_main, var_doc_type, var_
         var_pass_da = str(pass_da)
 
 
-        # myuuid_sbis_down = str(uuid.uuid4())
         myuuid_sbis_down = "b57d09dc-a631-4dbc-9e01-f706920fcb29"
-        # print('Your UUID is: ' + str(myuuid_sbis_down))
-        # _________________________________
 
         url = "https://online.sbis.ru/auth/service/" 
 
@@ -119,14 +113,12 @@ def send_message(var_link, var_doc_number, var_doc_data_main, var_doc_type, var_
 
         str_to_dict = json.loads(response.text)
         access_token = str_to_dict["result"]
-        # print("access_token:", access_token)
 
         headers = {
         "X-SBISSessionID": access_token,
         "Content-Type": "application/json",
         }  
 
-        # _____________________________________________________________
 
 
         parameters_real = {
@@ -146,7 +138,6 @@ def send_message(var_link, var_doc_number, var_doc_data_main, var_doc_type, var_
             },
             "recipients": [
             "c943a420-f494-4a38-8975-d9db61c3dba7",
-            # "dc283f5c-05fc-11ee-812e-3c846acc6838",
             ],
             "options": {
                 "d": [
@@ -179,42 +170,21 @@ def send_message(var_link, var_doc_number, var_doc_data_main, var_doc_type, var_
         url_real = "https://online.sbis.ru/msg/service/"
 
         response_points = requests.post(url_real, json=parameters_real, headers=headers)
-        # str_to_dict_points = json.loads(response_points.text)
-        # str_to_dict_points["result"]["d"][3]["chat_name"]
 
 
-# name_unloading = f"sbis_{var_year}{var_month}{var_day}_uploading"
-# name_unloading_exc = f"sbis_exc_{var_year}{var_month}{var_day}_uploading"
 
 
 def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_exc):
 
     var_now = datetime.now()
-    # var_day = f"{var_now.day:02d}"
-    # var_month = f"{var_now.month:02d}"
-    # var_year = f"{var_now.year:02d}"
 
-    # var_day = '01'
-    # var_month = '04'
-    # var_year = '2024'
-    
-    # var_day = var_day
-    # var_month = var_month
-    # var_year = var_year
-
-
-    
     date_from = date_from
     date_to = date_to
 
-    # var_now_B = var_now.strftime("%B")
 
     print("date_from:", date_from)
     print("date_to:", date_to)
-    # print("var_now_B:", var_now_B)
 
-    # name_unloading = f"sbis_{var_year}{var_month}{var_day}_uploading"
-    # name_unloading_exc = f"sbis_exc_{var_year}{var_month}{var_day}_uploading"
 
 
     def doc_append():
@@ -308,7 +278,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
     
     def def_act_vr(xml_a, var_inside_doc_author, var_inside_doc_type):
             
-            # _________________________________________________________________________________________________________________________________________________    
             def def_act_vr_print(var_inside_doc_author, var_inside_doc_type):
                 
                 if type(xml_a["Файл"]["Документ"]["СвДокПРУ"]["СодФХЖ1"]["ОписРабот"]["Работа"]) == dict:
@@ -415,7 +384,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                             print("_____________________")
 
                         
-            # _________________________________________________________________________________________________________________________________________________            
             def def_act_vr_set_variable(var_inside_doc_author, var_inside_doc_type):
                 if type(xml_a["Файл"]["Документ"]["СвДокПРУ"]["СодФХЖ1"]["ОписРабот"]["Работа"]) == dict:
                     
@@ -430,7 +398,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     var_inside_doc_item_code = ""
 
 
-                    # if type(xml_a["Файл"]["Документ"]["СвДокПРУ"]["СодФХЖ1"]["ОписРабот"]["Работа"]) == dict:
 
                     x = xml_a["Файл"]["Документ"]["СвДокПРУ"]["СодФХЖ1"]["ОписРабот"]["Работа"]
                     
@@ -483,7 +450,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         except:
                             var_inside_doc_item_name = ''
 
-                    # _____________________________________________________
                     var_agent = ''
                     var_date_from = ''
             
@@ -507,9 +473,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         pass
 
 
-                    #_________________________________ 
                     
-                    # _____________________________________________________
                     
                     
                     doc_append()
@@ -528,33 +492,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         var_date_from,
                         )
 
-                    # print("DICT")
-                    # print("var_link:", var_link)
-                    # print("var_doc_type:", var_doc_type)
-                    # print("var_doc_number:", var_doc_number)
-                    # print("var_doc_full_name:", var_doc_full_name)
-                    # print("var_doc_data_main:", var_doc_data_main)
-                    # print("var_doc_at_created:", var_doc_at_created)
-                    # print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                    # print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                    # print("var_doc_provider_inn:", var_doc_provider_inn)
-                    # print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                    # print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                    # print("var_doc_department:", var_doc_department)
                     
-                    # print("var_inside_doc_author:", var_inside_doc_author)
-                    # print("var_inside_doc_type:", var_inside_doc_type)
-                    # print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                    # print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                    # print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                    # print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                    # print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                    # print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                    # print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                    # print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                    # print("var_agent:", var_agent)
-                    # print("var_date_from:", var_date_from)
-                    # print("________________________________________________________________________________")
 
 
 
@@ -567,7 +505,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         sum_inside_doc += float(k["@СтоимУчНДС"])
                         
                         
-                    # _____________________________________________________
                     var_agent = ''
                     var_date_from = ''
 
@@ -589,9 +526,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     except:
                         pass
 
-                    #_________________________________ 
                     
-                    # _____________________________________________________                     
                         
                         
             
@@ -672,43 +607,13 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                             var_date_from,
                             )
 
-                    #     print("LIST")
-                    #     print("var_link:", var_link)
-                    #     print("var_doc_type:", var_doc_type)
-                    #     print("var_doc_number:", var_doc_number)
-                    #     print("var_doc_full_name:", var_doc_full_name)
-                    #     print("var_doc_data_main:", var_doc_data_main)
-                    #     print("var_doc_at_created:", var_doc_at_created)
-                    #     print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                    #     print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                    #     print("var_doc_provider_inn:", var_doc_provider_inn)
-                    #     print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                    #     print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                    #     print("var_doc_department:", var_doc_department)
 
-                    #     print("var_inside_doc_author:", var_inside_doc_author)
-                    #     print("var_inside_doc_type:", var_inside_doc_type)
-                    #     print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                    #     print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                    #     print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                    #     print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                    #     print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                    #     print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                    #     print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                    #     print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                    #     print("var_agent:", var_agent)
-                    #     print("var_date_from:", var_date_from)
-                    #     print("____________________________________")
-                    # print("________________________________________________________________________________")
 
-            # _________________________________________________________________________________________________________________________________________________            
 
-            # def_act_vr_print(var_inside_doc_author, var_inside_doc_type)
             def_act_vr_set_variable(var_inside_doc_author, var_inside_doc_type)
             
     def def_edo_nakl(xml_a, var_inside_doc_author, var_inside_doc_type):
             
-            # _________________________________________________________________________________________________________________________________________________    
             def def_edo_nakl_print(var_inside_doc_author, var_inside_doc_type):
                 
                 if type(xml_a["Файл"]["Документ"]["СвДокПТПрКроме"]["СодФХЖ2"]["СвТов"]) == dict:
@@ -758,7 +663,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         print("_____________________")
                 
                         
-            # _________________________________________________________________________________________________________________________________________________            
             def def_edo_nakl_set_variable(var_inside_doc_author, var_inside_doc_type):
                 if type(xml_a["Файл"]["Документ"]["СвДокПТПрКроме"]["СодФХЖ2"]["СвТов"]) == dict:
 
@@ -817,7 +721,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     except:
                             var_agent = ''
                         
-                        # Дата С_________________________________
                         
                     var_date_from = ''
                     try:
@@ -850,33 +753,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         var_agent,
                         var_date_from,
                         )
-                    # print("DICT")
-                    # print("var_link:", var_link)
-                    # print("var_doc_type:", var_doc_type)
-                    # print("var_doc_number:", var_doc_number)
-                    # print("var_doc_full_name:", var_doc_full_name)
-                    # print("var_doc_data_main:", var_doc_data_main)
-                    # print("var_doc_at_created:", var_doc_at_created)
-                    # print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                    # print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                    # print("var_doc_provider_inn:", var_doc_provider_inn)
-                    # print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                    # print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                    # print("var_doc_department:", var_doc_department)
                     
-                    # print("var_inside_doc_author:", var_inside_doc_author)
-                    # print("var_inside_doc_type:", var_inside_doc_type)
-                    # print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                    # print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                    # print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                    # print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                    # print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                    # print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                    # print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                    # print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                    # print("var_agent:", var_agent)
-                    # print("var_date_from:", var_date_from)
-                    # print("________________________________________________________________________________")
                     
                 elif type(xml_a["Файл"]["Документ"]["СвДокПТПрКроме"]["СодФХЖ2"]["СвТов"]) == list:
                     
@@ -905,7 +782,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         except:
                                 var_agent = ''
                             
-                            # Дата С_________________________________
                             
                         var_date_from = ''
                         try:
@@ -981,44 +857,14 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                                 var_date_from,
                                 )
 
-                        #     print("LIST")
-                        #     print("var_link:", var_link)
-                        #     print("var_doc_type:", var_doc_type)
-                        #     print("var_doc_number:", var_doc_number)
-                        #     print("var_doc_full_name:", var_doc_full_name)
-                        #     print("var_doc_data_main:", var_doc_data_main)
-                        #     print("var_doc_at_created:", var_doc_at_created)
-                        #     print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                        #     print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                        #     print("var_doc_provider_inn:", var_doc_provider_inn)
-                        #     print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                        #     print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                        #     print("var_doc_department:", var_doc_department)
     
-                        #     print("var_inside_doc_author:", var_inside_doc_author)
-                        #     print("var_inside_doc_type:", var_inside_doc_type)
-                        #     print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                        #     print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                        #     print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                        #     print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                        #     print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                        #     print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                        #     print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                        #     print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                        #     print("var_agent:", var_agent)
-                        #     print("var_date_from:", var_date_from)
-                        #     print("____________________________________")
-                        # print("________________________________________________________________________________")
 
 
-            # _________________________________________________________________________________________________________________________________________________            
 
-            # def_edo_nakl_print(var_inside_doc_author, var_inside_doc_type)
             def_edo_nakl_set_variable(var_inside_doc_author, var_inside_doc_type)
 
     def def_act_pp(xml_a, var_inside_doc_author, var_inside_doc_type):
             
-            # _________________________________________________________________________________________________________________________________________________    
             def def_act_pp_print(var_inside_doc_author, var_inside_doc_type):
                 
 
@@ -1090,7 +936,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     
                                     
                         
-            # _________________________________________________________________________________________________________________________________________________            
             def def_act_pp_set_variable(var_inside_doc_author, var_inside_doc_type):
 
 
@@ -1142,7 +987,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
 
 
 
-                    # Дата С__________________________________________________
                     var_date_from = ''
                     try:
                         str_date_from = xml_a["Файл"]["Документ"]["СведДок"]["ИнфПол"]["@ТекстИнф"]
@@ -1174,33 +1018,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         var_date_from,
                         ) 
                     
-                    # print("DICT")
-                    # print("var_link:", var_link)
-                    # print("var_doc_type:", var_doc_type)
-                    # print("var_doc_number:", var_doc_number)
-                    # print("var_doc_full_name:", var_doc_full_name)
-                    # print("var_doc_data_main:", var_doc_data_main)
-                    # print("var_doc_at_created:", var_doc_at_created)
-                    # print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                    # print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                    # print("var_doc_provider_inn:", var_doc_provider_inn)
-                    # print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                    # print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                    # print("var_doc_department:", var_doc_department)
                     
-                    # print("var_inside_doc_author:", var_inside_doc_author)
-                    # print("var_inside_doc_type:", var_inside_doc_type)
-                    # print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                    # print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                    # print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                    # print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                    # print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                    # print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                    # print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                    # print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                    # print("var_agent:", var_agent)
-                    # print("var_date_from:", var_date_from)
-                    # print("________________________________________________________________________________")
                 
                 elif type(xml_a["Файл"]["Документ"]["Таблица"]["СведТабл"]) == list:      
 
@@ -1229,7 +1047,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
 
 
 
-                    # Дата С__________________________________________________
                     var_date_from = ''
                     try:
                         str_date_from = xml_a["Файл"]["Документ"]["СведДок"]["ИнфПол"]["@ТекстИнф"]
@@ -1295,44 +1112,14 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                             var_date_from,
                             ) 
 
-                    #     print("LIST")
-                    #     print("var_link:", var_link)
-                    #     print("var_doc_type:", var_doc_type)
-                    #     print("var_doc_number:", var_doc_number)
-                    #     print("var_doc_full_name:", var_doc_full_name)
-                    #     print("var_doc_data_main:", var_doc_data_main)
-                    #     print("var_doc_at_created:", var_doc_at_created)
-                    #     print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                    #     print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                    #     print("var_doc_provider_inn:", var_doc_provider_inn)
-                    #     print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                    #     print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                    #     print("var_doc_department:", var_doc_department)
 
-                    #     print("var_inside_doc_author:", var_inside_doc_author)
-                    #     print("var_inside_doc_type:", var_inside_doc_type)
-                    #     print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                    #     print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                    #     print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                    #     print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                    #     print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                    #     print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                    #     print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                    #     print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                    #     print("var_agent:", var_agent)
-                    #     print("var_date_from:", var_date_from)
-                    #     print("____________________________________")
-                    # print("________________________________________________________________________________")
         
         
-            # _________________________________________________________________________________________________________________________________________________            
 
-            # def_act_pp_print(var_inside_doc_author, var_inside_doc_type)
             def_act_pp_set_variable(var_inside_doc_author, var_inside_doc_type)
 
     def def_upd_dop(xml_a, var_inside_doc_author, var_inside_doc_type):
             
-            # _________________________________________________________________________________________________________________________________________________    
             def def_upd_dop_print(var_inside_doc_author, var_inside_doc_type):
 
                 if type(xml_a["Файл"]["Документ"]["ТаблСчФакт"]["СведТов"]) == dict:
@@ -1409,7 +1196,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         except: 
                             print("var_inside_doc_item_full_doc_price", sum_inside_doc)
                         print("var_inside_doc_item_full_item_price", float(k["@СтТовУчНал"]))
-            # _________________________________________________________________________________________________________________________________________________            
 
             def def_upd_dop_set_variable(var_inside_doc_author, var_inside_doc_type):
                 
@@ -1471,7 +1257,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     except:
                         var_agent = ''
                     
-                    # Дата С_________________________________
                     
                     var_date_from = ''
                     try:
@@ -1484,7 +1269,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     except:
                         var_date_from = ''
                     
-                    #_________________________________                   
                     
                     
                     
@@ -1506,33 +1290,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         var_date_from,
                         ) 
 
-                    # print("DICT")
-                    # print("var_link:", var_link)
-                    # print("var_doc_type:", var_doc_type)
-                    # print("var_doc_number:", var_doc_number)
-                    # print("var_doc_full_name:", var_doc_full_name)
-                    # print("var_doc_data_main:", var_doc_data_main)
-                    # print("var_doc_at_created:", var_doc_at_created)
-                    # print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                    # print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                    # print("var_doc_provider_inn:", var_doc_provider_inn)
-                    # print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                    # print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                    # print("var_doc_department:", var_doc_department)
                     
-                    # print("var_inside_doc_author:", var_inside_doc_author)
-                    # print("var_inside_doc_type:", var_inside_doc_type)
-                    # print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                    # print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                    # print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                    # print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                    # print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                    # print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                    # print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                    # print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                    # print("var_agent:", var_agent)
-                    # print("var_date_from:", var_date_from)
-                    # print("________________________________________________________________________________")    
 
                 elif type(xml_a["Файл"]["Документ"]["ТаблСчФакт"]["СведТов"]) == list:
                 
@@ -1560,7 +1318,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     except:
                         var_agent = ''
                     
-                    # Дата С_________________________________
                     
                     var_date_from = ''
                     try:
@@ -1573,7 +1330,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     except:
                         var_date_from = ''
                     
-                    #_________________________________                          
                         
                         
                         
@@ -1631,45 +1387,15 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                             var_date_from,
                             )    
 
-                    #     print("LIST")
-                    #     print("var_link:", var_link)
-                    #     print("var_doc_type:", var_doc_type)
-                    #     print("var_doc_number:", var_doc_number)
-                    #     print("var_doc_full_name:", var_doc_full_name)
-                    #     print("var_doc_data_main:", var_doc_data_main)
-                    #     print("var_doc_at_created:", var_doc_at_created)
-                    #     print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                    #     print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                    #     print("var_doc_provider_inn:", var_doc_provider_inn)
-                    #     print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                    #     print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                    #     print("var_doc_department:", var_doc_department)
 
-                    #     print("var_inside_doc_author:", var_inside_doc_author)
-                    #     print("var_inside_doc_type:", var_inside_doc_type)
-                    #     print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                    #     print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                    #     print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                    #     print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                    #     print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                    #     print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                    #     print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                    #     print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                    #     print("var_agent:", var_agent)
-                    #     print("var_date_from:", var_date_from)
-                    #     print("____________________________________")
-                    # print("________________________________________________________________________________")
 
 
         
-            # _________________________________________________________________________________________________________________________________________________            
 
-            # def_upd_dop_print(var_inside_doc_author, var_inside_doc_type)
             def_upd_dop_set_variable(var_inside_doc_author, var_inside_doc_type)
 
     def def_upd_s_dop(xml_a, var_inside_doc_author, var_inside_doc_type):
             
-            # _________________________________________________________________________________________________________________________________________________    
             def def_upd_s_dop_print(var_inside_doc_author, var_inside_doc_type):
 
                 if type(xml_a["Файл"]["Документ"]["ТаблСчФакт"]["СведТов"]) == dict:
@@ -1750,7 +1476,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                             print("var_inside_doc_item_full_doc_price", sum_inside_doc)
                         print("var_inside_doc_item_full_item_price", float(k["@СтТовУчНал"]))
                             
-            # _________________________________________________________________________________________________________________________________________________            
 
             def def_upd_s_dop_set_variable(var_inside_doc_author, var_inside_doc_type):
                 
@@ -1776,7 +1501,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     except:
                         var_agent = ''
                     
-                    # Дата С_________________________________
                     
                     var_date_from = ''
                     try:
@@ -1847,33 +1571,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         var_date_from,
                         )    
 
-                    # print("DICT")
-                    # print("var_link:", var_link)
-                    # print("var_doc_type:", var_doc_type)
-                    # print("var_doc_number:", var_doc_number)
-                    # print("var_doc_full_name:", var_doc_full_name)
-                    # print("var_doc_data_main:", var_doc_data_main)
-                    # print("var_doc_at_created:", var_doc_at_created)
-                    # print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                    # print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                    # print("var_doc_provider_inn:", var_doc_provider_inn)
-                    # print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                    # print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                    # print("var_doc_department:", var_doc_department)
                     
-                    # print("var_inside_doc_author:", var_inside_doc_author)
-                    # print("var_inside_doc_type:", var_inside_doc_type)
-                    # print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                    # print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                    # print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                    # print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                    # print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                    # print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                    # print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                    # print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                    # print("var_agent:", var_agent)
-                    # print("var_date_from:", var_date_from)
-                    # print("________________________________________________________________________________")
                 
                 elif type(xml_a["Файл"]["Документ"]["ТаблСчФакт"]["СведТов"]) == list:
 
@@ -1900,7 +1598,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     except:
                         var_agent = ''
                     
-                    # Дата С_________________________________
                     
                     var_date_from = ''
                     try:
@@ -1973,37 +1670,8 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                             var_date_from,
                             )
                         
-                    #     print("LIST")
-                    #     print("var_link:", var_link)
-                    #     print("var_doc_type:", var_doc_type)
-                    #     print("var_doc_number:", var_doc_number)
-                    #     print("var_doc_full_name:", var_doc_full_name)
-                    #     print("var_doc_data_main:", var_doc_data_main)
-                    #     print("var_doc_at_created:", var_doc_at_created)
-                    #     print("var_doc_counterparty_inn:", var_doc_counterparty_inn)
-                    #     print("var_doc_counterparty_full_name:", var_doc_counterparty_full_name)
-                    #     print("var_doc_provider_inn:", var_doc_provider_inn)
-                    #     print("var_doc_provider_full_name:", var_doc_provider_full_name)
-                    #     print("var_doc_assigned_manager:", var_doc_assigned_manager)
-                    #     print("var_doc_department:", var_doc_department)
 
-                    #     print("var_inside_doc_author:", var_inside_doc_author)
-                    #     print("var_inside_doc_type:", var_inside_doc_type)
-                    #     print("var_inside_doc_item_full_doc_price:", var_inside_doc_item_full_doc_price)
-                    #     print("var_inside_doc_item_note:", var_inside_doc_item_note)
-                    #     print("var_inside_doc_item_code:", var_inside_doc_item_code)
-                    #     print("var_inside_doc_item_article:", var_inside_doc_item_article)
-                    #     print("var_inside_doc_item_name:", var_inside_doc_item_name)
-                    #     print("var_inside_doc_item_quantity:", var_inside_doc_item_quantity)
-                    #     print("var_inside_doc_item_unit:", var_inside_doc_item_unit)
-                    #     print("var_inside_doc_item_price:", var_inside_doc_item_price)
-                    #     print("var_agent:", var_agent)
-                    #     print("var_date_from:", var_date_from)
-                    #     print("____________________________________")
-                    # print("________________________________________________________________________________")
-            # _________________________________________________________________________________________________________________________________________________            
 
-            # def_upd_s_dop_print(var_inside_doc_author, var_inside_doc_type)
             def_upd_s_dop_set_variable(var_inside_doc_author, var_inside_doc_type)
             
             
@@ -2029,14 +1697,12 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
 
     str_to_dict = json.loads(response.text)
     access_token = str_to_dict["result"]
-    # print("access_token:", access_token)
 
     headers = {
     "X-SBISSessionID": access_token,
     "Content-Type": "application/json",
     }  
 
-    # _____________________________________________________________
     doc_id = []
     doc_type = []
     doc_number = []
@@ -2056,9 +1722,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
     doc_department = []
     
     
-    # ----------------------------------------
-    # ----------------------------------------
-    # ----------------------------------------
     base_doc_conn_type = []
     base_doc_date = []
     base_doc_id = []
@@ -2079,9 +1742,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
     consequence_doc_type = []
     consequence_doc_sum = []
 
-    # ----------------------------------------
-    # ----------------------------------------
-    # ----------------------------------------
 
 
     inside_doc_author = []
@@ -2102,7 +1762,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
     
     inside_agent = []
     inside_date_from = []
-    # ___________________________________________________________________________________________
     doc_id_exc = []
     doc_type_exc = []
     doc_number_exc = []
@@ -2120,7 +1779,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
 
     doc_assigned_manager_exc = []
     doc_department_exc = []
-    # ___________________________________________________________________________________________
 
     var_status_has_more = "Да"
     i_page = 0
@@ -2154,22 +1812,17 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
         
         json_data_points = json.dumps(str_to_dict_points_main, ensure_ascii=False, indent=4).encode("utf8").decode()
         
-        # with open("DICT_REALIZE.json", 'w') as json_file_points_o:
-        #     json_file_points_o.write(json_data_points)
         
         j = 0
         for i in str_to_dict_points_main["result"]["Документ"]:
-            # print(j)
             j += 1
             if (re.findall("реал", i["Регламент"]["Название"].lower())[-1] == "реал") and (i["Расширение"]["Проведен"].lower() == 'да'):
-    # ___________________________________________________________________________________________
                 
                 try:
                     var_link = i["Идентификатор"]
                 except:
                     var_link = np.nan
                     
-                # print("var_link:", var_link)
 
 
                 try:
@@ -2261,9 +1914,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     var_doc_department = i["Подразделение"]["Название"]
                 except:
                     var_doc_department = np.nan    
-    # ___________________________________________________________________________________________
 
-    # ___________________________________________________________________________________________
 
                 parameters_real = {
                 "jsonrpc": "2.0",
@@ -2280,12 +1931,8 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                 url_real = url_sbis_unloading
             
                 response_points = requests.post(url_real, json=parameters_real, headers=headers)
-                # print(response_points)
-                # print(headers)
                 str_to_dict_points = json.loads(response_points.text)
-    # ___________________________________________________________________________________________
                 
-                # author_list = [str_to_dict_points["result"]["Автор"]["Имя"], str_to_dict_points["result"]["Автор"]["Фамилия"], str_to_dict_points["result"]["Автор"]["Отчество"]]
                 try:
                     name = str_to_dict_points["result"]["Автор"]["Имя"]
                 except:
@@ -2301,16 +1948,12 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
             
                 author_list = [name, second_name, surname_name]
                 
-                # print("автор:", " ".join(author_list).strip())
                 try:
                     var_inside_doc_author = " ".join(author_list).strip()
                 except:
                     var_inside_doc_author = np.nan
                     
                 
-                # ------------------------------------------------------------------
-                # ------------------------------------------------------------------
-                # ------------------------------------------------------------------
                 
                 var_base_doc_conn_type = ''
                 var_base_doc_date = ''
@@ -2340,9 +1983,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                 except:
                     pass
                 
-                # ------------------------------------------------------------------
-                # ------------------------------------------------------------------
-                # ------------------------------------------------------------------
                 var_consequence_doc_conn_type = ''
                 var_consequence_doc_date = ''
                 var_consequence_doc_id = ''
@@ -2371,14 +2011,10 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                 except:
                     pass
                         
-                # ------------------------------------------------------------------
-                # ------------------------------------------------------------------
-                # ------------------------------------------------------------------
                     
                     
                 
                 
-    # ___________________________________________________________________________________________
            
                 def common_part_print():
                     print(j)
@@ -2441,9 +2077,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     except:
                         print("автор:", np.nan)
                     
-                # common_part_print()
 
-    # ___________________________________________________________________________________________
                 
                 
                 
@@ -2452,7 +2086,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     try:
                         for l in range(len(str_to_dict_points["result"]["ВложениеУчета"])):
                             if str_to_dict_points["result"]["ВложениеУчета"][l]["Тип"].lower() in ("актпп", "актвр", "эдонакл", "упддоп", "упдсчфдоп"):
-                                # print(str_to_dict_points["result"]["ВложениеУчета"][l]["Тип"].lower())
                                 attachments_id[str_to_dict_points["result"]["ВложениеУчета"][l]["Тип"].lower()] = str_to_dict_points["result"]["ВложениеУчета"][l]["Файл"]["Ссылка"]
                             else:
                                 pass
@@ -2480,7 +2113,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                     try:
                         for l in range(len(str_to_dict_points["result"]["Вложение"])):
                             if str_to_dict_points["result"]["Вложение"][l]["Тип"].lower() in ("актпп", "актвр", "эдонакл", "упддоп", "упдсчфдоп"):
-                                # print(str_to_dict_points["result"]["Вложение"][l]["Тип"].lower())
                                 attachments_id[str_to_dict_points["result"]["Вложение"][l]["Тип"].lower()] = str_to_dict_points["result"]["Вложение"][l]["Файл"]["Ссылка"]
                             else:
                                 pass
@@ -2503,11 +2135,9 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                             print(e)
                             print('_____________')       
                                 
-    # ___________________________________________________________________________________________           
                 if len(attachments_id) == 0:
                     
                     doc_append_exc()               
-    # ___________________________________________________________________________________________            
                 elif len(attachments_id) > 0:
                 
                         
@@ -2515,15 +2145,12 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         
                         if  b == "актвр":
                                         
-                            # ___________________________________________________________________________________________    
                             a = requests.get(attachments_id["актвр"], headers=headers)
                             a.encoding = "cp1251"
                             
                             try:
                                 xml_a = xmltodict.parse(a.text)
-                                # ___________________________________________________________________________________________    
                                 var_inside_doc_type = "актвр"
-                                # ___________________________________________________________________________________________    
                                 def_act_vr(xml_a, var_inside_doc_author, var_inside_doc_type)
                             except:
                                 print(var_link, var_doc_number, var_doc_data_main, var_doc_type, var_doc_counterparty_inn)                                
@@ -2534,20 +2161,16 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                                 except Exception as e:
                                     print(e)
                                     print('_____________')                          
-                        # _______________________________________________________________________________________________________________________________
                             
                         elif  b == "эдонакл":
                     
-                            # ___________________________________________________________________________________________    
                             a = requests.get(attachments_id["эдонакл"], headers=headers)
                             a.encoding = "cp1251"
                             
                             
                             try:
                                 xml_a = xmltodict.parse(a.text)
-                                # _______________________________________________________________________________________________________________________________
                                 var_inside_doc_type = "эдонакл"
-                                # _______________________________________________________________________________________________________________________________
                                 def_edo_nakl(xml_a, var_inside_doc_author, var_inside_doc_type)
                                 
                             except:
@@ -2559,20 +2182,16 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                                 except Exception as e:
                                     print(e)
                                     print('_____________')                         
-                        # _______________________________________________________________________________________________________________________________
                         
                         elif  b == "актпп":     
                                 
-                            # _______________________________________________________________________________________________________________________________
                             a = requests.get(attachments_id["актпп"], headers=headers)
                             a.encoding = "cp1251"
                             
                             try:
                                 xml_a = xmltodict.parse(a.text)    
                                 
-                                # _______________________________________________________________________________________________________________________________
                                 var_inside_doc_type = "актпп"
-                                # _______________________________________________________________________________________________________________________________
                         
                                 def_act_pp(xml_a, var_inside_doc_author, var_inside_doc_type)
                             
@@ -2585,19 +2204,15 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                                 except Exception as e:
                                     print(e)
                                     print('_____________')                                                
-                        # _______________________________________________________________________________________________________________________________
                         
                         elif  b == "упддоп":   
                             
-                                # _______________________________________________________________________________________________________________________________
                             a = requests.get(attachments_id["упддоп"], headers=headers)
                             a.encoding = "cp1251"
                             try:
                                 xml_a = xmltodict.parse(a.text)    
                             
-                                # _______________________________________________________________________________________________________________________________
                                 var_inside_doc_type = "упддоп"         
-                                # _______________________________________________________________________________________________________________________________
                                 xml_a["Файл"]
                                 def_upd_dop(xml_a, var_inside_doc_author, var_inside_doc_type)
                             
@@ -2610,7 +2225,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                                 except Exception as e:
                                     print(e)
                                     print('_____________')  
-                        # _______________________________________________________________________________________________________________________________
                         elif  b == "упдсчфдоп":     
                             a = requests.get(attachments_id["упдсчфдоп"], headers=headers)
                             a.encoding = "cp1251"
@@ -2618,9 +2232,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                             try:
                                 xml_a = xmltodict.parse(a.text)    
                                 
-                                # _______________________________________________________________________________________________________________________________
                                 var_inside_doc_type = "упдсчфдоп"
-                                # _______________________________________________________________________________________________________________________________
                                 xml_a["Файл"]
                                 def_upd_s_dop(xml_a, var_inside_doc_author, var_inside_doc_type)
                             except :
@@ -2642,9 +2254,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
         else:
             pass
         var_status_has_more = str_to_dict_points_main["result"]["Навигация"]["ЕстьЕще"]
-        # print("ЕстьЕще", var_status_has_more)
-        # print("___________________________________________________________________________________________________________________________________________________________")
-        # print(f"СЛЕДУЮЩАЯ СТРАНИЦА {i_page}")       
             
             
     lst_append = [doc_id,
@@ -2665,9 +2274,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
     doc_assigned_manager,
     doc_department,
     
-    # ----------------------------------------
-    # ----------------------------------------
-    # ----------------------------------------
 
     base_doc_conn_type,
     base_doc_date,
@@ -2689,9 +2295,6 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
     consequence_doc_type,
     consequence_doc_sum,
     
-    # ----------------------------------------
-    # ----------------------------------------
-    # ----------------------------------------
     
     inside_doc_author,
     inside_doc_type,
@@ -2916,4 +2519,4 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
         print('my_conn.failed()') 
 
 
-# sbis_real_processing_0('17.04.2026', '17.04.2026', 'TEST_new_api_sbis', 'TEST_new_api_sbis_exc')i
+# sbis_real_processing_0('17.04.2026', '17.04.2026', 'TEST_new_api_sbis', 'TEST_new_api_sbis_exc')
