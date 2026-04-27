@@ -318,6 +318,8 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                 except: 
                     var_inside_doc_item_type_agreement = ''
                 
+
+                var_inside_doc_item_validity = ''
                 try:    
                     for i_validity in xml_a["Файл"]["Документ"]["ИнфПол"]["ТекстИнф"]:
                         var_x_y = re.findall('срокдействия', i_validity["@Идентиф"].lower())
@@ -325,7 +327,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                             if var_x_y[0] == 'срокдействия':
                                 var_inside_doc_item_validity = i_validity["@Значен"]
                 except:
-                    var_inside_doc_item_validity = ''
+                    pass
                 
 
                     
@@ -594,12 +596,14 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
                         except: 
                             var_inside_doc_item_type_agreement = ''
                         
+
+                        var_inside_doc_item_validity = ''
                         try:    
                             list_var_inside_doc_item_validity = re.findall(r'\[&apos;(.*?)&apos;\]', xml_a["Файл"]["Документ"]["СвСчет"]["ИнфПол"]["@ТекстИнф"])
                             if len(list_var_inside_doc_item_validity) > 0:
                                 var_inside_doc_item_validity = str(list_var_inside_doc_item_validity)                    
                         except:
-                            var_inside_doc_item_validity = ''
+                            pass
 
                         
                         try:
@@ -1443,7 +1447,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
         my_conn.connect()
         print('my_conn.connect()')
         my_conn = my_conn.connect()
-        df.to_sql(name=f'{name_unloading}', con=my_conn, if_exists="replace")
+        df.to_sql(name=f'{name_unloading}', con=my_conn, schema="invoices", if_exists="replace")
         print("df.sent()")
         my_conn.close()
         print("my_conn.close()")
@@ -1456,7 +1460,7 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
         my_conn.connect()
         print('my_conn.connect()')
         my_conn = my_conn.connect()
-        df_exc.to_sql(name=f'{name_unloading_exc}', con=my_conn, if_exists="replace")
+        df_exc.to_sql(name=f'{name_unloading_exc}', con=my_conn, schema="invoices", if_exists="replace")
         print("df_exc.sent()")
         my_conn.close()
         print("my_conn.close()")
@@ -1465,4 +1469,4 @@ def sbis_real_processing_0(date_from, date_to, name_unloading, name_unloading_ex
         print('my_conn.failed()') 
 
 
-sbis_real_processing_0('31.03.2026', '31.03.2026', 'TEST_INVOCE_new_api_sbis', 'TEST_INVOCE_new_api_sbis_exc')
+# sbis_real_processing_0('31.03.2026', '31.03.2026', 'TEST_INVOCE_new_api_sbis', 'TEST_INVOCE_new_api_sbis_exc')
